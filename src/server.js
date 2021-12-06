@@ -1,15 +1,14 @@
 require('env');
 const app = require('app');
-const getConnection = require('database/get-connection');
+// const getConnection = require('database/get-connection');
 const { associate } = require('database/sync');
 
 const { PORT } = process.env;
-
 if (!PORT) {
   throw new Error('MISSING_ENVAR');
 }
 
-getConnection();
+// getConnection();
 associate();
 
 // 서버 동작

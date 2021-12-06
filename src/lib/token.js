@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 
 const { SECRET_KEY, CLIENT_HOST, API_HOST } = process.env;
 
-if (!SECRET_KEY || !CLIENT_HOST || !API_HOST) {
-  throw new Error('MISSING_ENVAR');
-}
+// if (!SECRET_KEY || !CLIENT_HOST || !API_HOST) {
+//   throw new Error('MISSING_ENVAR');
+// }
 
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
