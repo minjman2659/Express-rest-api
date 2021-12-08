@@ -53,7 +53,9 @@ exports.register = async (req, res, next) => {
 
     await t.commit();
 
-    res.status(201).send(user);
+    let returnUser = user.dataValues;
+    delete returnUser.password;
+    res.status(201).send(returnUser);
   } catch (err) {
     await t.rollback();
     next(err);
