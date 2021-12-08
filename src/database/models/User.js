@@ -39,7 +39,7 @@ const User = db.define(
     updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
   },
   {
-    indexs: [
+    indexes: [
       {
         fields: ['username', 'email'],
       },

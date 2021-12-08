@@ -17,9 +17,9 @@ const Post = db.define(
     updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
   },
   {
-    indexs: [
+    indexes: [
       {
-        fields: ['user_id'],
+        fields: ['fk_user_id'],
       },
     ],
   },
