@@ -1,7 +1,17 @@
 const { nanoid } = require('nanoid');
+const crypto = require('crypto');
 
 const { User } = require('database/models');
 const { randomEmail } = require('test/helper');
+
+const { PASSWORD_SALT } = process.env;
+
+function hash(password) {
+  return crypto
+    .createHmac('sha512', PASSWORD_SALT)
+    .update(password)
+    .digest('hex');
+}
 
 const makeRaw = (text = '') => {
   const payload = {
@@ -13,8 +23,7 @@ const makeRaw = (text = '') => {
   const buildPayload = {
     email: `${randomEmail()}`,
     username: `${nanoid(5)}_${text}`,
-    password:
-      '1c8e432462648d825ade4983da4b1c9cc231180d3dd0e77b0cfe0b28c5e2f2b39aa3adabfcd5e1fe968b9e815005cf67499c30177f4c0199e39064ceaa5adefa',
+    password: hash(payload.password),
   };
 
   return { payload, buildPayload };

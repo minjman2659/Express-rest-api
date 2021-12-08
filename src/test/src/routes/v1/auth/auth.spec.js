@@ -6,27 +6,29 @@ const { generateToken } = require('test/helper');
 
 describe('/api/v1/auth', () => {
   let payload = null;
-  let userEmail = null;
+  let user = null;
   beforeEach(async () => {
     const mock = await mockUser();
     payload = mock.payload;
+    user = mock.user;
   });
   it('[POST] /register', async () => {
     const { statusCode } = await request(app)
       .post('/api/v1/auth/register')
       .send(payload);
-    userEmail = payload.email;
+
     expect(statusCode).toBe(201);
   });
   it('[POST] /login', async () => {
+    const { email } = user;
     const { statusCode } = await request(app)
       .post('/api/v1/auth/login')
-      .send({ email: userEmail, password: 'password' });
+      .send({ email, password: 'password' });
 
     expect(statusCode).toBe(200);
   });
   it('[POST] /logout', async () => {
-    const { token } = await generateToken(userEmail);
+    const { token } = await generateToken(user.email);
 
     const { statusCode } = await request(app)
       .post('/api/v1/auth/logout')
