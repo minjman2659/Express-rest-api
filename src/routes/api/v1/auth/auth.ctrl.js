@@ -53,7 +53,7 @@ exports.register = async (req, res, next) => {
 
     await t.commit();
 
-    let returnUser = user.dataValues;
+    const returnUser = { ...user.dataValues };
     delete returnUser.password;
     res.status(201).send(returnUser);
   } catch (err) {
