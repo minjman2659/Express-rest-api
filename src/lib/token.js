@@ -19,9 +19,10 @@ const generateToken = (payload, options) => {
     // removes expiresIn when expiresIn is given as undefined
     delete jwtOptions.expiresIn;
   }
-
+  const userData = { ...payload.user.dataValues };
+  delete userData.password;
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, SECRET_KEY, jwtOptions, (err, token) => {
+    jwt.sign(userData, SECRET_KEY, jwtOptions, (err, token) => {
       if (err) reject(err);
       resolve(token);
     });

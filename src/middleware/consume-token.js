@@ -34,7 +34,7 @@ const consumeToken = async (req, res, next) => {
     }
 
     const accessTokenData = await decodeToken(accessToken);
-    const { id: userId } = accessTokenData.user;
+    const { id: userId } = accessTokenData;
     const user = await User.findByPk(userId);
 
     req.user = user;
