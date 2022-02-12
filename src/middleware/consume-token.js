@@ -28,7 +28,6 @@ const consumeToken = async (req, res, next) => {
   } = req.cookies;
 
   try {
-    // 여기 코드는 없어도 될 것 같습니다. (만약 accessToken이 없으면 catch(err)로 빠지기 때문에 없어도 되는 코드)
     if (!accessToken) {
       throw new Error('No access token');
     }
