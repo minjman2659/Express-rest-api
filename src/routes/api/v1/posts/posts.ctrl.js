@@ -21,7 +21,7 @@ exports.write = async (req, res, next) => {
       title,
       text,
       thumbnail,
-      fkUserId: userId,
+      userId,
     });
   } catch (err) {
     next(err);
@@ -47,7 +47,7 @@ exports.list = async (req, res, next) => {
       offset,
       limit,
       order: [['id', 'DESC']],
-      attributes: { exclude: ['fkUserId'] },
+      attributes: { exclude: ['userId'] },
       include: [{ model: User, as: 'writer', attributes: ['id', 'username'] }],
     });
 
@@ -76,7 +76,7 @@ exports.read = async (req, res, next) => {
       where: {
         id: postId,
       },
-      attributes: { exclude: ['fkUserId'] },
+      attributes: { exclude: ['userId'] },
       include: [{ model: User, as: 'writer', attributes: ['id', 'username'] }],
     });
   } catch (err) {
@@ -115,7 +115,7 @@ exports.update = async (req, res, next) => {
 
   try {
     post = await Post.findOne({
-      where: { id: postId, fkUserId: userId },
+      where: { id: postId, userId },
     });
   } catch (err) {
     next(err);
@@ -154,7 +154,7 @@ exports.remove = async (req, res, next) => {
 
   try {
     post = await Post.findOne({
-      where: { id: postId, fkUserId: userId },
+      where: { id: postId, userId },
     });
   } catch (err) {
     next(err);

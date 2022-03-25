@@ -18,7 +18,7 @@ function hash(password) {
 }
 
 const User = db.define(
-  'user',
+  'User',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -36,8 +36,8 @@ const User = db.define(
     password: {
       type: Sequelize.STRING,
     },
-    createdAt: { type: Sequelize.DATE, field: 'created_at' },
-    updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
+    createdAt: { type: Sequelize.DATE },
+    updatedAt: { type: Sequelize.DATE },
   },
   {
     indexes: [
@@ -52,8 +52,8 @@ const User = db.define(
 );
 
 User.associate = models => {
-  User.hasMany(models.post, {
-    foreignKey: 'fkUserId',
+  User.hasMany(models.Post, {
+    foreignKey: 'userId',
     as: 'posts',
   });
 };

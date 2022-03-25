@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('database/db');
 
 const Post = db.define(
-  'post',
+  'Post',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -12,22 +12,22 @@ const Post = db.define(
     title: Sequelize.STRING(100),
     text: Sequelize.TEXT,
     thumbnail: Sequelize.STRING,
-    fkUserId: { type: Sequelize.INTEGER, field: 'fk_user_id' },
-    createdAt: { type: Sequelize.DATE, field: 'created_at' },
-    updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
+    userId: { type: Sequelize.INTEGER },
+    createdAt: { type: Sequelize.DATE },
+    updatedAt: { type: Sequelize.DATE },
   },
   {
     indexes: [
       {
-        fields: ['fk_user_id'],
+        fields: ['userId'],
       },
     ],
   },
 );
 
 Post.associate = models => {
-  Post.belongsTo(models.user, {
-    foreignKey: 'fkUserId',
+  Post.belongsTo(models.User, {
+    foreignKey: 'userId',
     as: 'writer',
     onDelete: 'CASCADE',
     onUpdate: 'RESTRICT',

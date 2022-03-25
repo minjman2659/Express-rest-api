@@ -14,8 +14,8 @@ const mockPost = async () => {
     const { user } = await mockUser();
     const post = await Post.build({
       ...payload,
-      fkUserId: user.id,
-    });
+      userId: user.id,
+    }).save();
 
     return { user, post, payload };
   } catch (err) {

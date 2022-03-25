@@ -2,7 +2,8 @@ const request = require('supertest');
 
 const app = require('app');
 const { mockUser } = require('test/mock');
-const { generateToken } = require('test/helper');
+const { generateToken, validateSchema } = require('test/helper');
+const registerSchema = require('./schema');
 
 describe('/api/v1/auth', () => {
   let payload = null;
@@ -13,10 +14,11 @@ describe('/api/v1/auth', () => {
     user = mock.user;
   });
   it('[POST] /register', async () => {
-    const { statusCode } = await request(app)
+    const { statusCode, body } = await request(app)
       .post('/api/v1/auth/register')
       .send(payload);
 
+    expect(validateSchema(registerSchema, body)).toBe(true);
     expect(statusCode).toBe(201);
   });
   it('[POST] /login', async () => {

@@ -1,6 +1,9 @@
+require('env');
+const { User } = require('database/models');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable(User.getTableName(), {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -17,12 +20,12 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
-      createdAt: { type: Sequelize.DATE, field: 'created_at' },
-      updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
+      createdAt: { type: Sequelize.DATE },
+      updatedAt: { type: Sequelize.DATE },
     });
   },
 
   down: async queryInterface => {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable(User.getTableName());
   },
 };
