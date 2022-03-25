@@ -128,11 +128,13 @@ exports.update = async (req, res, next) => {
   }
 
   try {
-    post.title = title;
-    post.text = text;
-    post.thumbnail = thumbnail;
+    const updateArgs = {
+      title,
+      text,
+      thumbnail,
+    };
 
-    await post.save();
+    await post.update(updateArgs);
 
     res.sendStatus(200);
   } catch (err) {
