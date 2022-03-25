@@ -50,3 +50,9 @@ To run test, install jest
 ```javascript
   yarn test
 ```
+
+## API Docs
+
+[GET] http://localhost:3000/api/v1/docs , After run server in localhost.
+
+<img width="1399" alt="image" src="https://user-images.githubusercontent.com/81504356/160084497-acdef6f2-0385-4046-912c-5123acce0aaf.png">
