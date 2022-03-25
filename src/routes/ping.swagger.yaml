@@ -1,0 +1,18 @@
+openapi: '3.0.0'
+info:
+  title: 'Express-rest-api'
+  version: 1.0.0
+paths:
+  /ping:
+    get:
+      summary: 'Ping'
+      tags: [Ping]
+      description: 'Ping'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'Current Time: 2022-03-07 21:23:08'

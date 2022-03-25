@@ -33,7 +33,7 @@ exports.register = async (req, res, next) => {
   }
 
   if (existsUser) {
-    res.sendStatus(409);
+    res.status(409).send('EXISTED_USER');
     return;
   }
 

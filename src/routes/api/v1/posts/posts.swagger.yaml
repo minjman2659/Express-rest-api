@@ -1,0 +1,194 @@
+openapi: '3.0.0'
+info:
+  title: 'Express-rest-api'
+  version: 1.0.0
+paths:
+  /api/v1/posts:
+    post:
+      summary: '포스트 생성'
+      tags: [Post]
+      description: '포스트 생성'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: '제목 테스트'
+                text:
+                  type: string
+                  example: '내용 테스트'
+                thumbnail:
+                  type: string
+                  example: 'test.jpg'
+      responses:
+        '201':
+          description: 'Created'
+        '400':
+          description: 'Schema 에러'
+    get:
+      summary: '포스트 리스트 조회하기'
+      tags: [Post]
+      description: '포스트 리스트 조회'
+      parameters:
+        - name: 'page'
+          in: 'query'
+          description: '조회할 포스트 페이지'
+          required: true
+          schema:
+            type: integer
+        - name: 'limit'
+          in: 'query'
+          description: '조회할 포스트 개수'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'OK : posts와 count(DB 내 포스트 총 개수) 리턴'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: '제목 테스트'
+                        text:
+                          type: string
+                          example: '내용 테스트'
+                        thumbnail:
+                          type: string
+                          example: '썸네일 테스트'
+                        createdAt:
+                          format: datetime
+                          example: '2022-02-26T06:00:22.856Z'
+                        updatedAt:
+                          format: datetime
+                          example: '2022-02-26T06:00:22.856Z'
+                        writer:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            username:
+                              type: string
+                              example: '홍길동'
+                  count:
+                    type: integer
+                    example: 10
+        '400':
+          description: 'Schema 에러'
+  /api/v1/posts/{postId}:
+    get:
+      summary: '포스트 단일 조회하기'
+      tags: [Post]
+      description: '포스트 단일 조회'
+      parameters:
+        - name: 'postId'
+          in: 'path'
+          description: '조회할 포스트의 id'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: '제목 테스트'
+                  text:
+                    type: string
+                    example: '내용 테스트'
+                  thumbnail:
+                    type: string
+                    example: '썸네일 테스트'
+                  createdAt:
+                    format: datetime
+                    example: '2022-02-26T06:00:22.856Z'
+                  updatedAt:
+                    format: datetime
+                    example: '2022-02-26T06:00:22.856Z'
+                  writer:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      username:
+                        type: string
+                        example: '홍길동'
+        '400':
+          description: 'Bad request : postId가 없을 경우'
+        '404':
+          description: 'Not found post : 해당되는 post가 없거나, 내가 작성한 post가 아닐 경우'
+    patch:
+      summary: '포스트 수정하기'
+      tags: [Post]
+      description: '포스트 수정'
+      parameters:
+        - name: 'postId'
+          in: 'path'
+          description: '수정할 포스트의 id'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: '제목 수정 테스트'
+                text:
+                  type: string
+                  example: '내용 수정 테스트'
+                thumbnail:
+                  type: string
+                  example: 'test.jpeg'
+      responses:
+        '200':
+          description: 'OK'
+        '400':
+          description: 'Bad request : postId가 없을 경우 / Schema 에러'
+        '404':
+          description: 'Not found post : 해당되는 post가 없거나, 내가 작성한 post가 아닐 경우'
+    delete:
+      summary: '포스트 삭제하기'
+      tags: [Post]
+      description: '포스트 삭제'
+      parameters:
+        - name: 'postId'
+          in: 'path'
+          description: '삭제할 포스트의 id'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'OK'
+        '400':
+          description: 'Bad request : postId가 없을 경우'
+        '404':
+          description: 'Not found post : 해당되는 post가 없거나, 내가 작성한 post가 아닐 경우'

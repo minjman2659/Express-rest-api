@@ -14,6 +14,7 @@ associate();
 // 서버 동작
 const server = app.listen(PORT, () => {
   console.log(`Server is running, port number is ${PORT} `);
+  console.log(`${process.env.NODE_ENV} config was applied`);
 });
 
 module.exports = server;
