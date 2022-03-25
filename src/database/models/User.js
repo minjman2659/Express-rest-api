@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const _ = require('lodash');
 const Sequelize = require('sequelize');
 const db = require('database/db');
 const { generateToken } = require('lib/token');
@@ -147,6 +148,11 @@ User.prototype.validatePassword = function validatePassword(password) {
     throw new Error('password column is required');
   }
   return this.password === hashed;
+};
+
+User.prototype.toRes = function toRes() {
+  const user = _.chain(this.toJSON()).omit(['password']).value();
+  return user;
 };
 
 module.exports = User;
