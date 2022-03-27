@@ -120,14 +120,14 @@ describe('/api/v1/posts', () => {
         expect(res._isEndCalled()).toBe(true);
       });
       it('should return 404 status code in response', async () => {
-        req.params.contentId = -1;
+        req.params.postId = -1;
         await read(req, res, next);
         expect(res.statusCode).toBe(404);
         expect(res._isEndCalled()).toBe(true);
       });
-      it('should handle error: read.findOne', async () => {
+      it('should handle error: Post.findOne', async () => {
         const errorMessage = {
-          message: 'throw read.findOne error',
+          message: 'throw Post.findOne error',
         };
         Post.findOne.mockRejectedValue(errorMessage);
         await read(req, res, next);
@@ -165,7 +165,7 @@ describe('/api/v1/posts', () => {
           expect(res._isEndCalled()).toBe(true);
         });
         it('should return 404 status code in response', async () => {
-          req.params.contentId = -1;
+          req.params.postId = -1;
           await update(req, res, next);
           expect(res.statusCode).toBe(404);
           expect(res._isEndCalled()).toBe(true);
@@ -214,14 +214,14 @@ describe('/api/v1/posts', () => {
           expect(res._isEndCalled()).toBe(true);
         });
         it('should return 404 status code in response', async () => {
-          req.params.contentId = -1;
+          req.params.postId = -1;
           await remove(req, res, next);
           expect(res.statusCode).toBe(404);
           expect(res._isEndCalled()).toBe(true);
         });
         it('should handle error: Post.findOne error', async () => {
           const errorMessage = {
-            message: 'throw MagazineContent.findOne error',
+            message: 'throw Post.findOne error',
           };
           Post.findOne.mockRejectedValue(errorMessage);
           await remove(req, res, next);
@@ -229,7 +229,7 @@ describe('/api/v1/posts', () => {
         });
         it('should handle error: mPost.destroy error', async () => {
           const errorMessage = {
-            message: 'throw magazineContent.update error',
+            message: 'throw mPost.destroy error',
           };
           mPost.destroy = jest.fn();
           Post.findOne.mockReturnValue(mPost);
