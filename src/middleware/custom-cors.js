@@ -1,5 +1,5 @@
 const customCors = (req, res, next) => {
-  const allowedOrigin = [process.env.CLIENT_HOST];
+  const allowedOrigin = [process.env.CLIENT_HOST, req.get('origin')]; // origin: true
 
   // whiteList
   if (allowedOrigin.includes(req.get('origin'))) {
