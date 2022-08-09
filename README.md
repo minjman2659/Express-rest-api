@@ -51,6 +51,13 @@ To run test, install jest
   yarn test
 ```
 
+## Docker
+
+To run postgreSQL:12 & minjman/express-rest-api containers include migration, use docker compose
+```javascript
+  docker compose up
+```
+
 ## API Docs
 
 [GET] http://localhost:3000/api/v1/docs , After run server in localhost.
