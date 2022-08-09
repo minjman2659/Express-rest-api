@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: express_db
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgres/data
+    env_file:
+      - .env.production
+    environment:
+      POSTGRES_DB: express_db
+      POSTGRES_USER: minjman
+      POSTGRES_PASSWORD: minjman
+
+  backend:
+    container_name: express_rest_api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: minjman/express-rest-api
+    restart: always
+    ports:
+      - '8081:8081'
+    depends_on:
+      - postgres
+    command: sh -c "yarn db:migrate && yarn dev"
+
+volumes:
+  db_data:
