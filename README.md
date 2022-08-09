@@ -1,6 +1,6 @@
 # Express-rest-api-sample
 
-NodeJS REST API sample with integration Express, Sequelize, Jest, Swagger
+NodeJS REST API sample with integration Express, Sequelize, Jest, Swagger, Docker
 
 ## Configure Environment Variables
 
